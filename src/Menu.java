@@ -6,20 +6,21 @@ public class Menu {
     public static void main(String[] args) throws IOException {
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
-            System.out.println("Выберите действие: \n" +
-                    "1. Зашифровать \n" +
-                    "2. Расшифровать \n" +
-                    "3. Подобрать ключ перебором \n" +
-                    "4. Расшифровать с помощью статистическгог анализа \n" +
-                    "5. Выход из программы");
+            System.out.println("""
+                    Выберите действие:\s
+                    1. Зашифровать\s
+                    2. Расшифровать\s
+                    3. Подобрать ключ перебором\s
+                    4. Расшифровать с помощью статистического анализа\s
+                    5. Выход из программы""");
 
             String answer = console.readLine();
 
             switch (answer) {
-                case "1" -> System.out.println("Зашифровать");
-                case "2" -> System.out.println("Расшифровать");
+                case "1" -> new EncryptedDecrypted().encryptedDecrypted(true);
+                case "2" -> new EncryptedDecrypted().encryptedDecrypted(false);
                 case "3" -> System.out.println("3. Подобрать ключ перебором");
-                case "4" -> System.out.println("4. Расшифровать с помощью статистическго анализа");
+                case "4" -> System.out.println("4. Расшифровать с помощью статистического анализа");
                 case "5" -> { return; }
             }
         }
