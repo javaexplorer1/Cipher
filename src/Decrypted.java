@@ -6,24 +6,26 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Decrypted {
-    public void decrypted () throws IOException {          // найти и исправить ошибку, добавить перенос строк
+
+    private final Scanner scanner = new Scanner(System.in);
+    private final CesarCipher cesarCipher = new CesarCipher();
+
+    public void decrypted() throws IOException {
         System.out.println("Введите путь к файлу для расшифровки:");
-        Scanner scanner = new Scanner(System.in);
         String pathEncryptFile = scanner.nextLine();
         System.out.println("Введите ключ расшифрования:");
-        int key = scanner.nextInt();
-        System.out.println("Введите путь для сохранения расшифрованного файла:");
-        String pathNotEncryptFile = scanner.nextLine();
-        CesarCipher cesarCipher = new CesarCipher();
+        int key = Integer.parseInt(scanner.nextLine());
+
+        Path pathNotEncrypt = PathHelper.buildFileName(pathEncryptFile, "_decrypted");
+
         try (BufferedReader reader = Files.newBufferedReader(Path.of(pathEncryptFile));
-             BufferedWriter writer = Files.newBufferedWriter(Path.of(pathNotEncryptFile))) {
+             BufferedWriter writer = Files.newBufferedWriter(pathNotEncrypt)) {
             while (reader.ready()) {
                 String string = reader.readLine();
                 String decrypted = cesarCipher.decrypt(string, key);
-                writer.write(decrypted);
+                writer.write(decrypted + System.lineSeparator());
             }
         }
-        System.out.println("Файл успешно расшифрован");
-
+        System.out.println("Файл " + pathNotEncrypt.getFileName() + " успешно расшифрован" + System.lineSeparator());
     }
 }
