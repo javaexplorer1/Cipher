@@ -6,23 +6,27 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Encrypted {
-    public void encrypted () throws IOException {
-        System.out.println("Введите путь к файлу для зашифровки:");
-        Scanner scanner = new Scanner(System.in);
+
+    private final Scanner scanner = new Scanner(System.in);
+    private final CesarCipher cesarCipher = new CesarCipher();
+
+    public void encrypted() throws IOException {
+        System.out.println("Введите путь к файлу для шифрования:");
         String pathNotEncryptFile = scanner.nextLine();
         System.out.println("Введите ключ шифрования:");
-        int key = scanner.nextInt();
-        System.out.println("Введите путь для сохранения зашифрованного файла:");
-        String pathEncryptFile = scanner.nextLine();
-        CesarCipher cesarCipher = new CesarCipher();
+        int key = Integer.parseInt(scanner.nextLine());
+
+        Path pathEncrypt = PathHelper.buildFileName(pathNotEncryptFile, "_encrypted");
+
         try (BufferedReader reader = Files.newBufferedReader(Path.of(pathNotEncryptFile));
-             BufferedWriter writer = Files.newBufferedWriter(Path.of(pathEncryptFile))) {
+             BufferedWriter writer = Files.newBufferedWriter(pathEncrypt)) {
             while (reader.ready()) {
                 String string = reader.readLine();
                 String encrypted = cesarCipher.encrypt(string, key);
-                writer.write(encrypted);
+                writer.write(encrypted + System.lineSeparator());
             }
         }
-        System.out.println("Файл успешно зашифрован");
+        System.out.println("Файл " + pathEncrypt.getFileName() + " успешно зашифрован" + System.lineSeparator());
     }
 }
+
