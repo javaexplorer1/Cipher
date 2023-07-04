@@ -49,7 +49,10 @@ public class Bruteforce {
                 return false;
             }
         }
-        // проверить корректную работу при использовании метода matcher
+//         проверить корректную работу при использовании метода matcher
+//        if (text.matches("[.,!?]+\s")) {
+//            isValidate = true;
+//        }
         if (text.contains(". ") || text.contains(", ") || text.contains("! ") || text.contains("? ")) {
             isValidate = true;
         }
