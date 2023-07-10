@@ -1,4 +1,5 @@
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Random;
 
 public class CesarCipher {
@@ -8,9 +9,9 @@ public class CesarCipher {
     public String encrypt(String message, int key) {
 
         StringBuilder builder = new StringBuilder();
-        char[] chars = message.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            int index = ALPHABET.indexOf(chars[i]);
+
+        for (char aChar : message.toCharArray()) {                      // for replaced by for each
+            int index = ALPHABET.indexOf(aChar);
 
             if (index >= 0) {
                 int newIndex = (index + key) % ALPHABET.length();
